@@ -1,6 +1,7 @@
 package Client;
 
 import Dealer.Dealer;
+import Games.Blackjack;
 import org.academiadecodigo.bootcamp.Prompt;
 import org.academiadecodigo.bootcamp.scanners.integer.IntegerInputScanner;
 import org.academiadecodigo.bootcamp.scanners.integer.IntegerRangeInputScanner;
@@ -44,7 +45,7 @@ public class ClientThreadManager implements Runnable {
     int playerCardsValue = 0;
     ArrayList<String> dealerCards = new ArrayList<>();
     ArrayList<String> playerCards = new ArrayList<>();
-
+    private Blackjack blackjack;
     String allPlayerCards = "";
     String allDealerCards = "";
 
@@ -56,6 +57,7 @@ public class ClientThreadManager implements Runnable {
             in = new BufferedInputStream(clientSocket.getInputStream());
             out = new PrintStream(clientSocket.getOutputStream());
             prompt = new Prompt(in, out);
+            blackjack = new Blackjack(clientSocket,prompt);
         } catch (IOException e) {
             System.out.println("Error creating output/input stream for client!");
         }
@@ -63,7 +65,6 @@ public class ClientThreadManager implements Runnable {
 
     @Override
     public void run() {
-
         out.print("\n" +
                 "░█████╗░██╗░░░██╗███╗░░██╗███╗░░██╗██╗██╗░░░░░██╗███╗░░██╗██╗░░░██╗██╗░░██╗\n" +
                 "██╔══██╗██║░░░██║████╗░██║████╗░██║██║██║░░░░░██║████╗░██║██║░░░██║╚██╗██╔╝\n" +
@@ -85,24 +86,25 @@ public class ClientThreadManager implements Runnable {
 
         question1.setMessage("Whats is your name?\n\n");
         message = prompt.getUserInput(question1);
-
+        blackjack.setMessage(message);
         MenuInputScanner scanner = new MenuInputScanner(options);
         out.print("\nWelcome " + message + "! \n\n");
 
         try {
             while (true) {
-
+                money = blackjack.getMoney();
                 answerIndex = prompt.getUserInput(scanner);
                 switch (answerIndex) {
 
                     case 1: {
                         out.print("\nGame is starting!\n");
-                        game();
+                        blackjack.run();
                         break;
                     }
                     case 2: {
                         if (money == 0) {
                             out.print("\nDeposition 10€ to help you pay the depth\n");
+                            blackjack.setMoney(10);
                         } else {
                             out.print("\nYou have more then enough money to play!\n");
                         }
@@ -124,44 +126,6 @@ public class ClientThreadManager implements Runnable {
         }
     }
 
-    public void game() {
-        startGame();
-        giveDealerCards(1);
-        out.print(showDealerCards());
-
-        givePlayerCards(2);
-        out.print(showPlayerCards());
-
-        checkPlayerJackpot();
-        checkDealerJackpot();
-
-        while (!gameEnd) {
-            askPlayerAction();
-            checkPlayerJackpot();
-            checkDealerJackpot();
-
-            switch (gameAnswerIndex) {
-                case 1: {
-                    givePlayerCards(1);
-                    checkPlayerJackpot();
-                    checkDealerJackpot();
-                    out.print(showDealerCards());
-                    out.print(showPlayerCards());
-                    break;
-                }
-                case 2: {
-                    giveDealerCards(1);
-                    checkPlayerJackpot();
-                    checkDealerJackpot();
-                    out.print(showDealerCards());
-                    out.print(showPlayerCards());
-                    break;
-                }
-            }
-
-        }
-    }
-
     public void close() {
         try {
             clientSocket.shutdownInput();
@@ -177,85 +141,10 @@ public class ClientThreadManager implements Runnable {
         return clientSocket;
     }
 
-    public String showPlayerCards() {
-        allPlayerCards = "";
-        for (String playerCards : playerCards) {
-            allPlayerCards += playerCards;
-        }
-
-        return "\n" + message + " : " + allPlayerCards + "\n";
-    }
-
-    public String showDealerCards() {
-        allDealerCards = "";
-        for (String dealerCards : dealerCards) {
-            allDealerCards += dealerCards;
-        }
-        return "\nDEALER : " + allDealerCards + "\n";
-    }
-
-    public void givePlayerCards(int numberOfTimes) {
-        for (int i = 0; i < numberOfTimes; i++) {
-            playerCardsValue += dealer.drawCards();
-            playerCards.add(dealer.getCardValue() + dealer.getSuits());
-        }
-    }
-
-    public void giveDealerCards (int numberOfTimes) {
-        if (dealerCardsValue >= 17) {
-            out.print("Dealer is standing");
-        } else {
-            for (int i = 0; i < numberOfTimes; i++) {
-                dealerCardsValue += dealer.drawCards();
-                dealerCards.add(dealer.getCardValue() + dealer.getSuits());
-            }
-        }
-    }
-
     public void askPlayerAction() {
         MenuInputScanner scanner = new MenuInputScanner(gameOptions);
         out.print("\nWhat do you want to do? \n");
         gameAnswerIndex = prompt.getUserInput(scanner);
     }
 
-    public void checkPlayerJackpot() {
-        if (playerCardsValue == 21) {
-            gameEnd = true;
-            out.print(ANSI_GREEN  + "\n" + message + " has hit a jackpot! He wins: " + bet + "€\n" + ANSI_RESET);
-            money += bet;
-        } else if (playerCardsValue > 21) {
-            gameEnd = true;
-            out.print(ANSI_RED + "\n" + message + " busted! He lost: " + bet + "\n" + ANSI_RESET);
-            money -= bet;
-        }
-    }
-
-    public void checkDealerJackpot() {
-        if (dealerCardsValue == 21) {
-            gameEnd = true;
-            out.print(ANSI_GREEN + "\nDealer has hit a jackpot! He wins!\n" + ANSI_RESET);
-            money -= bet;
-        } else if (dealerCardsValue > 21) {
-            gameEnd = true;
-            out.print(ANSI_GREEN + "\nDealer busted! Player won : " + bet + "\n" + ANSI_RESET);
-            money += bet;
-        }
-    }
-
-    public void resetCards() {
-        playerCardsValue = 0;
-        playerCards.clear();
-        dealerCardsValue = 0;
-        dealerCards.clear();
-    }
-
-    public void startGame() {
-        resetCards();
-        gameEnd = false;
-        IntegerInputScanner minAndMaxValues = new IntegerRangeInputScanner(2, money);
-        out.print("Min : 2 - Max : 1000");
-        minAndMaxValues.setMessage("\nHow much do you want to bet?\n");
-        minAndMaxValues.setError("\nYou dont have that money you dumb\n");
-        bet = prompt.getUserInput(minAndMaxValues);
-    }
 }
