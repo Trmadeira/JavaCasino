@@ -140,11 +140,4 @@ public class ClientThreadManager implements Runnable {
     public Socket getClientSocket() {
         return clientSocket;
     }
-
-    public void askPlayerAction() {
-        MenuInputScanner scanner = new MenuInputScanner(gameOptions);
-        out.print("\nWhat do you want to do? \n");
-        gameAnswerIndex = prompt.getUserInput(scanner);
-    }
-
 }
