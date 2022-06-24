@@ -2,6 +2,7 @@ package Client;
 
 import Dealer.Dealer;
 import Games.Blackjack;
+import Server.Lobby;
 import org.academiadecodigo.bootcamp.Prompt;
 import org.academiadecodigo.bootcamp.scanners.integer.IntegerInputScanner;
 import org.academiadecodigo.bootcamp.scanners.integer.IntegerRangeInputScanner;
@@ -12,6 +13,7 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.stream.DoubleStream;
 
 public class ClientThreadManager implements Runnable {
 
@@ -49,6 +51,8 @@ public class ClientThreadManager implements Runnable {
     String allPlayerCards = "";
     String allDealerCards = "";
 
+    Lobby lobby;
+
     public ClientThreadManager(Socket clientSocket) {
 
         this.clientSocket = clientSocket;
@@ -62,6 +66,27 @@ public class ClientThreadManager implements Runnable {
             System.out.println("Error creating output/input stream for client!");
         }
     }
+
+    /* public boolean size() {
+
+        for (int i = 0; i <= lobby.clientsNumber; i++) {
+
+            if (lobby.clientsNumber == 2) {
+
+                System.out.println("2 Players connected..");
+                startGame(); // ver depois.
+
+            } else if (lobby.clientsNumber == 31) {
+
+                System.out.println("The limit of players is 30! Please try again later.");
+                gameEnd = true;
+
+            }
+
+        }
+        return size();
+    }*/
+
 
     @Override
     public void run() {

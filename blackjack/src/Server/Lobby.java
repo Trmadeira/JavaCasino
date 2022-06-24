@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class Lobby implements Serializable {
 
-   private static final int port = 8080;
+  /* private static final int port = 8080;
    public static final int maxUser = 30;
    private static final Object MIN_USERS = 2;
 
@@ -34,7 +34,6 @@ public class Lobby implements Serializable {
         lobby.createLobby(lobby);
 
 
-        public void waitForPlayers() {
 
             while (true) {
 
@@ -54,7 +53,6 @@ public class Lobby implements Serializable {
                 }
             }
         }
-    }
 
     private void createLobby(Lobby lobby) throws IOException, ClassNotFoundException {
 
@@ -62,6 +60,17 @@ public class Lobby implements Serializable {
 
         registerServer(lobby);
         runServer(lobby);
+
+    }
+
+    private void waitReady() { //needs testing
+
+        while (this.clientsNumber != 2) {
+
+            System.out.println("Wait until have 2 players.");
+        }
+
+        System.out.println("Finally there is 2 players to play.");
 
     }
 
@@ -75,7 +84,7 @@ public class Lobby implements Serializable {
 
                 Socket socket = serverSocket.accept();
 
-                if (ClientThreadManager.size() >= maxUser) { // falta criar um size na thread.
+                if (ClientThreadManager.size() >= maxUser) {
 
                 } else {
 
@@ -107,5 +116,5 @@ public class Lobby implements Serializable {
 
         return ClientThreadManager.stream().allMatch(ServerThread::isReady); // falta method.
 
-    }
+    } */
 }

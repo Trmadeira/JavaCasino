@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class Client implements Serializable {
 
-    private int playerName;
+   /* private int playerName;
     public String name = "User";
     private transient Socket socket;
     public transient Scanner input = new Scanner(System.in);
@@ -61,5 +61,5 @@ public class Client implements Serializable {
             objectOutputStream.writeObject(name + ": " + inputReader.readLine());
 
         }
-    }
+    } */
 }
