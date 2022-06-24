@@ -2,6 +2,7 @@ package Client;
 
 import Dealer.Dealer;
 import Games.Blackjack;
+import Games.Roulette;
 import Server.Lobby;
 import org.academiadecodigo.bootcamp.Prompt;
 import org.academiadecodigo.bootcamp.scanners.menu.MenuInputScanner;
@@ -115,6 +116,7 @@ public class ClientThreadManager implements Runnable {
         blackjack.setMessage(message);
         MenuInputScanner scanner = new MenuInputScanner(options);
         out.print("\nWelcome " + message + "! \n\n");
+
 
         try {
             while (true) {
