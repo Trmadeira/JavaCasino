@@ -4,14 +4,12 @@ import Dealer.Dealer;
 import Games.Blackjack;
 import Server.Lobby;
 import org.academiadecodigo.bootcamp.Prompt;
-import org.academiadecodigo.bootcamp.scanners.integer.IntegerInputScanner;
-import org.academiadecodigo.bootcamp.scanners.integer.IntegerRangeInputScanner;
 import org.academiadecodigo.bootcamp.scanners.menu.MenuInputScanner;
 import org.academiadecodigo.bootcamp.scanners.string.StringInputScanner;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
+import java.nio.charset.StandardCharsets;
 import java.util.NoSuchElementException;
 import java.util.stream.DoubleStream;
 
@@ -27,29 +25,22 @@ public class ClientThreadManager implements Runnable {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
 
+    private BufferedReader readFile;
+    private FileOutputStream writeFile;
 
     private Socket clientSocket;
     private PrintStream out;
     private InputStream in;
     private Prompt prompt;
     private String message;
-    private String[] options = {"Play Blackjack", "Deposit more money", "Check available balance", "Quit game D:"};
-    private String[] gameOptions = {"Hit" , "Stand"};
-    private boolean gameEnd;
+    private final String[] options = {"Play Blackjack","Show high scores","Deposit more money", "Check available balance", "Quit game D:"};
 
     private Dealer dealer = new Dealer();
 
     int answerIndex;
-    int gameAnswerIndex;
     int money = 20;
-    int bet = 0;
-    int dealerCardsValue = 0;
-    int playerCardsValue = 0;
-    ArrayList<String> dealerCards = new ArrayList<>();
-    ArrayList<String> playerCards = new ArrayList<>();
     private Blackjack blackjack;
-    String allPlayerCards = "";
-    String allDealerCards = "";
+
 
     Lobby lobby;
 
@@ -90,6 +81,16 @@ public class ClientThreadManager implements Runnable {
 
     @Override
     public void run() {
+        try {
+            readFile = new BufferedReader(new FileReader("scores.txt"));
+            writeFile = new FileOutputStream("scores.txt",true);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+
         out.print("\n" +
                 "░█████╗░██╗░░░██╗███╗░░██╗███╗░░██╗██╗██╗░░░░░██╗███╗░░██╗██╗░░░██╗██╗░░██╗\n" +
                 "██╔══██╗██║░░░██║████╗░██║████╗░██║██║██║░░░░░██║████╗░██║██║░░░██║╚██╗██╔╝\n" +
@@ -127,6 +128,10 @@ public class ClientThreadManager implements Runnable {
                         break;
                     }
                     case 2: {
+                        outputScores();
+                        break;
+                    }
+                    case 3: {
                         if (money == 0) {
                             out.print("\nDeposition 10€ to help you pay the depth\n");
                             blackjack.setMoney(10);
@@ -135,12 +140,13 @@ public class ClientThreadManager implements Runnable {
                         }
                         break;
                     }
-                    case 3: {
+                    case 4: {
                         out.print("\nYou have " + money + "€\n");
                         break;
                     }
-                    case 4: {
+                    case 5: {
                         out.print("\nWhy are you leaving D: \n\n");
+                        createFile();
                         close();
                         break;
                     }
@@ -155,6 +161,8 @@ public class ClientThreadManager implements Runnable {
         try {
             clientSocket.shutdownInput();
             clientSocket.shutdownOutput();
+            readFile.close();
+            writeFile.close();
             clientSocket.close();
         } catch (IOException e) {
             System.out.println("Error closing the connection with player");
@@ -164,5 +172,50 @@ public class ClientThreadManager implements Runnable {
 
     public Socket getClientSocket() {
         return clientSocket;
+    }
+
+    public void createFile() {
+        String sign = "€";
+        String scores = "";
+        try {
+            readFile = new BufferedReader(new FileReader("scores.txt"));
+            writeFile = new FileOutputStream("scores.txt",true);
+
+            while ((scores = readFile.readLine()) != null) {
+                System.out.println(scores);
+            if (scores.contains(message + ":" + money + "€")) {
+                System.out.println("hello");
+                return;
+            }
+        }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            writeFile.write(message.getBytes(StandardCharsets.UTF_8));
+            writeFile.write(":".getBytes(StandardCharsets.UTF_8));
+            writeFile.write(String.valueOf(money).getBytes(StandardCharsets.UTF_8));
+            writeFile.write(sign.getBytes(StandardCharsets.UTF_8));
+            writeFile.write("\n".getBytes(StandardCharsets.UTF_8));
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Could not create file!");
+        } catch (IOException e) {
+            System.out.println("Could not write to file!");
+        }
+    }
+
+    public void outputScores() {
+        try {
+            readFile = new BufferedReader(new FileReader("scores.txt"));
+            String st = "";
+            while ((st = readFile.readLine()) != null) {
+                out.print("\n" + st + "\n");
+            }
+
+        } catch (IOException e) {
+            System.out.println("Could not read file");
+        }
     }
 }
