@@ -26,30 +26,30 @@ public class Blackjack {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
 
+    //Variables
     private Socket clientSocket;
     private PrintStream out;
     private InputStream in;
     private Prompt prompt;
-    private String message;
-
-    private String[] options = {"Play Blackjack", "Deposit more money", "Check available balance", "Quit game D:"};
-    private String[] gameOptions = {"Hit" , "Stand"};
-    private boolean gameEnd;
-
     private Dealer dealer = new Dealer();
 
-    int answerIndex;
-    int gameAnswerIndex;
-    int money = 20;
-    int bet = 0;
-    int dealerCardsValue = 0;
-    int playerCardsValue = 0;
-    ArrayList<String> dealerCards = new ArrayList<>();
-    ArrayList<String> playerCards = new ArrayList<>();
+    //Options for blackjack game
+    private String[] gameOptions = {"Hit" , "Stand"};
 
-    String allPlayerCards = "";
-    String allDealerCards = "";
+    //More variables
+    private String message;
+    private boolean gameEnd;
+    private int gameAnswerIndex;
+    private int money = 20;
+    private int bet = 0;
+    private int dealerCardsValue = 0;
+    private int playerCardsValue = 0;
+    private ArrayList<String> dealerCards = new ArrayList<>();
+    private ArrayList<String> playerCards = new ArrayList<>();
+    private String allPlayerCards = "";
+    private String allDealerCards = "";
 
+    //Blackjack constructor receivees the socket and prompt, create new input and output streams;
     public Blackjack(Socket clientSocket, Prompt prompt) {
         this.clientSocket = clientSocket;
         this.prompt = prompt;
@@ -62,6 +62,7 @@ public class Blackjack {
     }
 
     public void run() {
+
         game();
     }
 
