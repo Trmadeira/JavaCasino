@@ -115,7 +115,6 @@ public class ClientThreadManager implements Runnable {
         MenuInputScanner scanner = new MenuInputScanner(options);
         out.print("\nWelcome " + message + "! \n\n");
 
-
         try {
             while (true) {
                 money = blackjack.getMoney();
@@ -128,7 +127,7 @@ public class ClientThreadManager implements Runnable {
                         break;
                     }
                     case 2: {
-                        roulette.gameRoulette();
+                        roulette.gameRoulette(money);
                     }
                     case 3: {
                         outputScores();

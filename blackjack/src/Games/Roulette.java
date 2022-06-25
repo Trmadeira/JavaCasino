@@ -35,13 +35,7 @@ public class Roulette {
     }
 
 
-    public void runRoulette() {
-
-        gameRoulette();
-
-        }
-
-        public void gameRoulette () {
+        public void gameRoulette (int playerMoney) {
 
             Scanner input = new Scanner(in);
             out.print("");
@@ -130,7 +124,7 @@ public class Roulette {
             int gamble = 0;
             int payout = 0;
             int randomNum = 0;
-            int money = blackjack.getMoney();
+            int money = playerMoney;
             int rounds = 1;
 
             Random random = new Random();
