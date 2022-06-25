@@ -34,13 +34,14 @@ public class ClientThreadManager implements Runnable {
     private InputStream in;
     private Prompt prompt;
     private String message;
-    private final String[] options = {"Play Blackjack","Show high scores","Deposit more money", "Check available balance", "Quit game D:"};
+    private final String[] options = {"Play Blackjack","Play Roulette","Show high scores","Deposit more money", "Check available balance", "Quit game D:"};
 
     private Dealer dealer = new Dealer();
 
     int answerIndex;
     int money = 20;
     private Blackjack blackjack;
+    private Roulette roulette;
 
 
     Lobby lobby;
@@ -54,6 +55,7 @@ public class ClientThreadManager implements Runnable {
             out = new PrintStream(clientSocket.getOutputStream());
             prompt = new Prompt(in, out);
             blackjack = new Blackjack(clientSocket,prompt);
+            roulette = new Roulette(clientSocket, prompt);
         } catch (IOException e) {
             System.out.println("Error creating output/input stream for client!");
         }
@@ -130,10 +132,13 @@ public class ClientThreadManager implements Runnable {
                         break;
                     }
                     case 2: {
+                        roulette.gameRoulette();
+                    }
+                    case 3: {
                         outputScores();
                         break;
                     }
-                    case 3: {
+                    case 4: {
                         if (money == 0) {
                             out.print("\nDeposition 10€ to help you pay the depth\n");
                             blackjack.setMoney(10);
@@ -142,11 +147,11 @@ public class ClientThreadManager implements Runnable {
                         }
                         break;
                     }
-                    case 4: {
+                    case 5: {
                         out.print("\nYou have " + money + "€\n");
                         break;
                     }
-                    case 5: {
+                    case 6: {
                         out.print("\nWhy are you leaving D: \n\n");
                         createFile();
                         close();

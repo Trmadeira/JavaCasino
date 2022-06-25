@@ -49,7 +49,7 @@ public class Blackjack {
     private String allPlayerCards = "";
     private String allDealerCards = "";
 
-    //Blackjack constructor receivees the socket and prompt, create new input and output streams;
+    //Blackjack constructor receives the socket and prompt, create new input and output streams;
     public Blackjack(Socket clientSocket, Prompt prompt) {
         this.clientSocket = clientSocket;
         this.prompt = prompt;
