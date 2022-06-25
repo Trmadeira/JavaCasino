@@ -10,7 +10,9 @@ import org.academiadecodigo.bootcamp.scanners.string.StringInputScanner;
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class ClientThreadManager implements Runnable {
 
@@ -26,16 +28,12 @@ public class ClientThreadManager implements Runnable {
 
     private BufferedReader readFile;
     private FileOutputStream writeFile;
-
     private Socket clientSocket;
     private PrintStream out;
     private InputStream in;
     private Prompt prompt;
     private String message;
-    private final String[] options = {"Play Blackjack","Play Roulette","Show high scores","Deposit more money", "Check available balance", "Quit game D:"};
-
-    private Dealer dealer = new Dealer();
-
+    private final String[] options = {"Play Blackjack", "Play Roulette", "Show high scores", "Deposit more money", "Check available balance", "Quit game D:"};
     int answerIndex;
     int money = 20;
     private Blackjack blackjack;
@@ -50,44 +48,21 @@ public class ClientThreadManager implements Runnable {
             in = new BufferedInputStream(clientSocket.getInputStream());
             out = new PrintStream(clientSocket.getOutputStream());
             prompt = new Prompt(in, out);
-            blackjack = new Blackjack(clientSocket,prompt);
+            blackjack = new Blackjack(clientSocket, prompt);
             roulette = new Roulette(clientSocket, prompt);
         } catch (IOException e) {
             System.out.println("Error creating output/input stream for client!");
         }
     }
 
-    /* public boolean size() {
-
-        for (int i = 0; i <= lobby.clientsNumber; i++) {
-
-            if (lobby.clientsNumber == 2) {
-
-                System.out.println("2 Players connected..");
-                startGame(); // ver depois.
-
-            } else if (lobby.clientsNumber == 31) {
-
-                System.out.println("The limit of players is 30! Please try again later.");
-                gameEnd = true;
-
-            }
-
-        }
-        return size();
-    }*/
-
-
     @Override
     public void run() {
         try {
             readFile = new BufferedReader(new FileReader("scores.txt"));
-            writeFile = new FileOutputStream("scores.txt",true);
+            writeFile = new FileOutputStream("scores.txt", true);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-
-
 
 
         out.print("\n" +
@@ -179,27 +154,43 @@ public class ClientThreadManager implements Runnable {
     public void createFile() {
         String sign = "€";
         String scores = "";
+        ArrayList<String> plzHelp = new ArrayList<>();
+        String player = message + ":" + money + "€";
+        int arrayIndex = 0;
+
+        boolean same = false;
+
         try {
             readFile = new BufferedReader(new FileReader("scores.txt"));
-            writeFile = new FileOutputStream("scores.txt",true);
 
             while ((scores = readFile.readLine()) != null) {
-                System.out.println(scores);
-            if (scores.contains(message + ":" + money + "€")) {
-                System.out.println("hello");
-                return;
+                plzHelp.add(scores);
             }
-        }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
-        try {
-            writeFile.write(message.getBytes(StandardCharsets.UTF_8));
-            writeFile.write(":".getBytes(StandardCharsets.UTF_8));
-            writeFile.write(String.valueOf(money).getBytes(StandardCharsets.UTF_8));
-            writeFile.write(sign.getBytes(StandardCharsets.UTF_8));
-            writeFile.write("\n".getBytes(StandardCharsets.UTF_8));
+            for (int i = 0; i < plzHelp.size(); i++) {
+                String a = plzHelp.get(i);
+                if (a.equals(player) || a.contains(message)) {
+                    System.out.println("same");
+                    arrayIndex = i;
+                    same = true;
+                }
+            }
+
+            if (!same) {
+                plzHelp.add(player);
+            } else {
+                plzHelp.remove(arrayIndex);
+                plzHelp.add(player);
+            }
+
+            writeFile = new FileOutputStream("scores.txt");
+            writeFile.write("".getBytes(StandardCharsets.UTF_8));
+            writeFile = new FileOutputStream("scores.txt", true);
+            for (String a : plzHelp) {
+                writeFile.write(a.getBytes(StandardCharsets.UTF_8));
+                writeFile.write("\n".getBytes(StandardCharsets.UTF_8));
+            }
+
 
         } catch (FileNotFoundException e) {
             System.out.println("Could not create file!");
