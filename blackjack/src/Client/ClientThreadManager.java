@@ -12,19 +12,11 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 
 public class ClientThreadManager implements Runnable {
 
     public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
 
     private BufferedReader readFile;
     private FileOutputStream writeFile;
@@ -97,6 +89,10 @@ public class ClientThreadManager implements Runnable {
                 switch (answerIndex) {
 
                     case 1: {
+                        if (money <= 2) {
+                            out.print("You dont have enough money go deposit some!\n");
+                            break;
+                        }
                         out.print("\nGame is starting!\n");
                         blackjack.run();
                         break;
