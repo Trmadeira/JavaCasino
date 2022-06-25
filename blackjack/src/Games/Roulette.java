@@ -16,6 +16,8 @@ public class Roulette {
     private PrintStream out;
     private InputStream in;
     private Prompt prompt;
+    private Blackjack blackjack;
+
 
     public Roulette(Socket clientSocket, Prompt prompt) {
 
@@ -128,7 +130,7 @@ public class Roulette {
             int gamble = 0;
             int payout = 0;
             int randomNum = 0;
-            int money = 100;
+            int money = blackjack.getMoney();
             int rounds = 1;
 
             Random random = new Random();
