@@ -19,6 +19,43 @@ public class Roulette {
 
             String check = input.nextLine();
 
+            String gameVisual = "\"  ________________________________________________________________\n" +
+                    "                |                     CUNNILINUX ROULETTE                       |\n" +
+                    "                ----------------------------------------------------------------\n" +
+                    "                | Bet                    | Pays | Probability Win | House Edge  |\n" +
+                    "                +------------------------+------+-----------------+-------------+\n" +
+                    "                | Red                    | 1x    | 47.37%          | 5.26%      |\n" +
+                    "                +------------------------+------+-----------------+-------------+\n" +
+                    "                | Black                  | 1x    | 47.37%          | 5.26%      |\n" +
+                    "                +------------------------+------+-----------------+-------------+\n" +
+                    "                | Odd                    | 1x    | 47.37%          | 5.26%      |\n" +
+                    "                +------------------------+------+-----------------+-------------+\n" +
+                    "                | Even                    | 1x    | 47.37%          | 5.26%     |\n" +
+                    "                +------------------------+------+-----------------+-------------+\n" +
+                    "                | 1 to 18                | 1x    | 47.37%          | 5.26%      |\n" +
+                    "                +------------------------+------+-----------------+-------------+\n" +
+                    "                | 19 to 36               | 1x    | 47.37%          | 5.26%      |\n" +
+                    "                +------------------------+------+-----------------+-------------+\n" +
+                    "                | 1 to 12                | 2x    | 31.58%          | 5.26%      |\n" +
+                    "                +------------------------+------+-----------------+-------------+\n" +
+                    "                | 13 to 24               | 2x    | 31.58%          | 5.26%      |\n" +
+                    "                +------------------------+------+-----------------+-------------+\n" +
+                    "                | 25 to 36               | 2x    | 31.58%          | 5.26%      |\n" +
+                    "                +------------------------+------+-----------------+-------------+\n" +
+                    "                | Six line (6 numbers)   | 5x    | 15.79%          | 5.26%      |\n" +
+                    "                +------------------------+------+-----------------+-------------+\n" +
+                    "                | First five (5 numbers) | 6x    | 13.16           | 7.89%      |\n" +
+                    "                +------------------------+------+-----------------+-------------+\n" +
+                    "                | Corner (4 numbers)     | 8x    | 10.53%          | 5.26%      |\n" +
+                    "                +------------------------+------+-----------------+-------------+\n" +
+                    "                | Street (3 numbers)     | 11x   | 7.895           | 5.26%      |\n" +
+                    "                +------------------------+------+-----------------+-------------+\n" +
+                    "                | Split (2 numbers)      | 17x   | 5.26%           | 5.26%      |\n" +
+                    "                +------------------------+------+-----------------+-------------+\n" +
+                    "                | Any one number         | 35x   | 2.62%           | 5.26%      |\n" +
+                    "                +------------------------+------+-----------------+-------------+\"";
+
+
             while (!(check.equals("y") && !(check.equals("n")))) {
 
                 System.out.println("Incorrect, please type Y/N.");
@@ -38,41 +75,7 @@ public class Roulette {
                 System.out.println("If your money goes to 0€ or below, you will lose.");
                 System.out.println("WARNING: Cashing out will reset the game.");
                 System.out.println("You will be able to see the commands at any time, by typing 'commands'.");
-                System.out.println("________________________________________________________________");
-                System.out.println("|                     CUNNILINUX ROULETTE                       |");
-                System.out.println("----------------------------------------------------------------");
-                System.out.println("| Bet                    | Pays | Probability Win | House Edge  |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| Red                    | 1x    | 47.37%          | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| Black                  | 1x    | 47.37%          | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| Odd                    | 1x    | 47.37%          | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| Even                    | 1x    | 47.37%          | 5.26%     |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| 1 to 18                | 1x    | 47.37%          | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| 19 to 36               | 1x    | 47.37%          | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| 1 to 12                | 2x    | 31.58%          | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| 13 to 24               | 2x    | 31.58%          | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| 25 to 36               | 2x    | 31.58%          | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| Six line (6 numbers)   | 5x    | 15.79%          | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| First five (5 numbers) | 6x    | 13.16           | 7.89%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| Corner (4 numbers)     | 8x    | 10.53%          | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| Street (3 numbers)     | 11x   | 7.895           | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| Split (2 numbers)      | 17x   | 5.26%           | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| Any one number         | 35x   | 2.62%           | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
+                System.out.println(gameVisual);
                 System.out.println("You can scroll the instructions.");
 
                 try {
@@ -101,48 +104,51 @@ public class Roulette {
 
             Random random = new Random();
 
+            String whatDo = "What would you like to do?";
+            String commands = "Commands: | bet | money | cashout | help | restart |";
+
             CASHOUT_BREAK_OUT:
             while (money > 0) {
 
                 payout = 0;
                 System.out.println("Round " + rounds + ".");
 
-                System.out.println("You have €" + money + ".");
-                System.out.println("What would you like to do?");
-                System.out.println("Commands: | bet | money | cashout | help | restart |");
+                System.out.println("You have " + money + "€" + ".");
+                System.out.println(whatDo);
+                System.out.println(commands);
                 answer = input.next();
                 while (!(answer.equals("bet")) && !(answer.equals("money")) && !(answer.equals("cashout")) &&
                         !(answer.equals("restart")) && !(answer.equals("help"))) {
                     System.out.println("Invalid choice!");
                     System.out.println("");
-                    System.out.println("What would you like to do?");
-                    System.out.println("Commands: | bet | money | cashout | help | restart |");
+                    System.out.println(whatDo);
+                    System.out.println(commands);
                     answer = input.next();
                 }
 
                 while (answer.equals("money")) {
-                    System.out.println("Your balance is at €" + money + ".");
-                    System.out.println("What would you like to do?");
-                    System.out.println("Commands: | bet | money | cashout | help | restart |");
+                    System.out.println("Your balance is " + money + "€" + ".");
+                    System.out.println(whatDo);
+                    System.out.println(commands);
                     answer = input.next();
                 }
 
                 while (answer.equals("cashout")) {
-                    System.out.println("Are you sure you want to cashout €" + money + "? Y/N.");
+                    System.out.println("Are you sure you want to cashout " + money + "€" +"? Y/N.");
                     cashoutConfirm = input.next();
                     while (!(cashoutConfirm.equals("y")) && !(cashoutConfirm.equals("n"))) {
                         System.out.println("Please input either 'y' (yes) or 'n' (no). ");
-                        System.out.println("Are you sure you want to cashout €" + money + "? Y/N.");
+                        System.out.println("Are you sure you want to cashout " + money + "€" + "? Y/N.");
                         cashoutConfirm = input.next();
                     }
                     if (cashoutConfirm.equals("y")) {
-                        System.out.println("You have cashed out €" + money + " with a " +
+                        System.out.println("You have cashed out " + money + "€" + " with a " +
                                 winStreak + " win streak within " + rounds + " rounds.");
                         break CASHOUT_BREAK_OUT;
                     }
                     if (cashoutConfirm.equals("n")) {
-                        System.out.println("What would you like to do?");
-                        System.out.println("Commands: | bet | money | cashout | help | restart |");
+                        System.out.println(whatDo);
+                        System.out.println(commands);
                         answer = input.next();
                     }
                 }
@@ -161,13 +167,13 @@ public class Roulette {
                         money = 100;
                         winStreak = 0;
                         rounds = 1;
-                        System.out.println("What would you like to do?");
-                        System.out.println("Commands: | bet | money | cashout | help | restart |");
+                        System.out.println(whatDo);
+                        System.out.println(commands);
                         answer = input.next();
                     }
                     if (cashoutConfirm.equals("n")) {
-                        System.out.println("What would you like to do?");
-                        System.out.println("Commands: | bet | money | cashout | help | restart |");
+                        System.out.println(whatDo);
+                        System.out.println(commands);
                         answer = input.next();
                     }
                 }
@@ -176,45 +182,11 @@ public class Roulette {
                     System.out.println("If your money goes to €0 or below, you will lose.");
                     System.out.println("WARNING: Cashing out will reset the game.");
                     System.out.println("You will be able to see the commands at any time, by typing 'commands'.");
-                    System.out.println("+--------------------------------------------------------------+");
-                    System.out.println("|                      CUNNILINUX CASINO                       | ");
-                    System.out.println("+--------------------------------------------------------------+");
-                    System.out.println("| Bet                    | Pays | Probability Win | House Edge |");
-                    System.out.println("+------------------------+------+-----------------+------------+");
-                    System.out.println("| Red                    | 1x    | 47.37%          | 5.26%      |");
-                    System.out.println("+------------------------+------+-----------------+------------+");
-                    System.out.println("| Black                  | 1x    | 47.37%          | 5.26%      |");
-                    System.out.println("+------------------------+------+-----------------+------------+");
-                    System.out.println("| Odd                    | 1x    | 47.37%          | 5.26%      |");
-                    System.out.println("+------------------------+------+-----------------+------------+");
-                    System.out.println("|Even                    | 1x    | 47.37%          | 5.26%      |");
-                    System.out.println("+------------------------+------+-----------------+------------+");
-                    System.out.println("| 1 to 18                | 1x    | 47.37%          | 5.26%      |");
-                    System.out.println("+------------------------+------+-----------------+------------+");
-                    System.out.println("| 19 to 36               | 1x    | 47.37%          | 5.26%      |");
-                    System.out.println("+------------------------+------+-----------------+------------+");
-                    System.out.println("| 1 to 12                | 2x    | 31.58%          | 5.26%      |");
-                    System.out.println("+------------------------+------+-----------------+------------+");
-                    System.out.println("| 13 to 24               | 2x    | 31.58%          | 5.26%      |");
-                    System.out.println("+------------------------+------+-----------------+------------+");
-                    System.out.println("| 25 to 36               | 2x    | 31.58%          | 5.26%      |");
-                    System.out.println("+------------------------+------+-----------------+------------+");
-                    System.out.println("| Six line (6 numbers)   | 5x    | 15.79%          | 5.26%      |");
-                    System.out.println("+------------------------+------+-----------------+------------+");
-                    System.out.println("| First five (5 numbers) | 6x    | 13.16           | 7.89%      |");
-                    System.out.println("+------------------------+------+-----------------+------------+");
-                    System.out.println("| Corner (4 numbers)     | 8x    | 10.53%          | 5.26%      |");
-                    System.out.println("+------------------------+------+-----------------+------------+");
-                    System.out.println("| Street (3 numbers)     | 11x   | 7.895           | 5.26%      |");
-                    System.out.println("+------------------------+------+-----------------+------------+");
-                    System.out.println("| Split (2 numbers)      | 17x   | 5.26%           | 5.26%      |");
-                    System.out.println("+------------------------+------+-----------------+------------+");
-                    System.out.println("| Any one number         | 35x   | 2.62%           | 5.26%      |");
-                    System.out.println("+------------------------+------+-----------------+------------+");
+                    System.out.println(gameVisual);
                     System.out.println("You should probably familiarize yourself with the layout of a roulette table" +
                             "before playing this command-line version of the game.");
                     System.out.println("You can scroll the instructions.");
-                    System.out.println("What would you like to do?");
+                    System.out.println(whatDo);
 
                     try {
 
@@ -226,7 +198,7 @@ public class Roulette {
 
                     System.out.println("");
                     System.out.println("");
-                    System.out.println("Commands: | bet | money | cashout | help | restart |");
+                    System.out.println(commands);
                     answer = input.next();
                 }
 
@@ -235,41 +207,9 @@ public class Roulette {
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
-                System.out.println("+--------------------------------------------------------------+");
-                System.out.println("| This game is based on real-life roulette tables.             |");
-                System.out.println("+--------------------------------------------------------------+");
-                System.out.println("| Bet                    | Pays | Probability Win | House Edge |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| Red                    | 1    | 47.37%          | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| Black                  | 1    | 47.37%          | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| Odd                    | 1    | 47.37%          | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("|Even                    | 1    | 47.37%          | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| 1 to 18                | 1    | 47.37%          | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| 19 to 36               | 1    | 47.37%          | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| 1 to 12                | 2    | 31.58%          | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| 13 to 24               | 2    | 31.58%          | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| 25 to 36               | 2    | 31.58%          | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| Six line (6 numbers)   | 5    | 15.79%          | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| First five (5 numbers) | 6    | 13.16           | 7.89%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| Corner (4 numbers)     | 8    | 10.53%          | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| Street (3 numbers)     | 11   | 7.895           | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| Split (2 numbers)      | 17   | 5.26%           | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
-                System.out.println("| Any one number         | 35   | 2.62%           | 5.26%      |");
-                System.out.println("+------------------------+------+-----------------+------------+");
+
+
+                System.out.println(gameVisual);
                 System.out.println("");
                 System.out.println("");
                 System.out.println("Commands: | red     | black     | odd    | even   |   any | 1to18 | 19to36 |");
@@ -367,11 +307,11 @@ public class Roulette {
                     if (randomNum > 1579) {
                         money -= gamble;
                         winStreak = 0;
-                        System.out.println("You lost $" + gamble + " with 84.21%%!");
+                        System.out.println("You lost €" + gamble + " with 84.21%%!");
                     }
                 } else if (bet.equals("firstfive")) {
                     randomNum = random.nextInt(10000) + 1;
-                    System.out.println("Betting $" + gamble + " on " + bet + "...");
+                    System.out.println("Betting €" + gamble + " on " + bet + "...");
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException ex) {
@@ -479,7 +419,7 @@ public class Roulette {
                 System.out.println("You are on a " + winStreak + " win streak.");
                 if (winStreak == 3) {
                     System.out.println("You have been awarded €500 for your third win streak!");
-                    System.out.println("€500 has been deposited into your account.");
+                    System.out.println("500€ has been deposited into your account.");
                     money += 500;
                 }
                 rounds += 1;
