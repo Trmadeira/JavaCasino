@@ -19,8 +19,8 @@ public class Roulette {
 
             String check = input.nextLine();
 
-            String gameVisual = "\"  ________________________________________________________________\n" +
-                    "                |                     CUNNILINUX ROULETTE                       |\n" +
+            String gameVisual ="                _________________________________________________________________\n" +
+                    "                |                       CUNNILINUX ROULETTE                     |\n" +
                     "                ----------------------------------------------------------------\n" +
                     "                | Bet                    | Pays | Probability Win | House Edge  |\n" +
                     "                +------------------------+------+-----------------+-------------+\n" +
@@ -53,7 +53,7 @@ public class Roulette {
                     "                | Split (2 numbers)      | 17x   | 5.26%           | 5.26%      |\n" +
                     "                +------------------------+------+-----------------+-------------+\n" +
                     "                | Any one number         | 35x   | 2.62%           | 5.26%      |\n" +
-                    "                +------------------------+------+-----------------+-------------+\"";
+                    "                +------------------------+------+-----------------+-------------+";
 
 
             while (!(check.equals("y") && !(check.equals("n")))) {
@@ -105,6 +105,8 @@ public class Roulette {
             Random random = new Random();
 
             String whatDo = "What would you like to do?";
+            String betOption ="Commands: |   red   |   black   |  odd   |  even  |  any  | 1to18 | 19to36 |\n" +
+                                        "| sixline | firstfive | corner | street | split | 1to12 | 13to24 | 25to36 |";
             String commands = "Commands: | bet | money | cashout | help | restart |";
 
             CASHOUT_BREAK_OUT:
@@ -181,10 +183,7 @@ public class Roulette {
                     System.out.println("You start off with €100, and your goal is to cash out with as much money as possible.");
                     System.out.println("If your money goes to €0 or below, you will lose.");
                     System.out.println("WARNING: Cashing out will reset the game.");
-                    System.out.println("You will be able to see the commands at any time, by typing 'commands'.");
                     System.out.println(gameVisual);
-                    System.out.println("You should probably familiarize yourself with the layout of a roulette table" +
-                            "before playing this command-line version of the game.");
                     System.out.println("You can scroll the instructions.");
                     System.out.println(whatDo);
 
@@ -212,8 +211,7 @@ public class Roulette {
                 System.out.println(gameVisual);
                 System.out.println("");
                 System.out.println("");
-                System.out.println("Commands: | red     | black     | odd    | even   |   any | 1to18 | 19to36 |");
-                System.out.println("          | sixline | firstfive | corner | street | split | 1to12 | 13to24 | 25to36 |");
+                System.out.println(betOption);
                 System.out.println("");
                 System.out.println("What would you like to bet on?");
 
@@ -230,14 +228,16 @@ public class Roulette {
                         Thread.currentThread().interrupt();
                     }
                     System.out.println("");
-                    System.out.println("Commands: | red     | black     | odd    | even   |   any | 1to18 | 19to36 |");
-                    System.out.println("          | sixline | firstfive | corner | street | split | 1to12 | 13to24 | 25to36 |");
+                    System.out.println(betOption);
                     System.out.println("");
                     System.out.println("What would you like to bet on?");
                     bet = input.nextLine();
                 }
 
-                System.out.println("How much money are you going to bet?");
+
+                String moneyBet = "How much money are you going to bet?";
+
+                System.out.println(moneyBet);
                 gamble = input.nextInt();
                 while (gamble > money) {
                     System.out.println("Nice try, you're betting more than you have...");
@@ -246,7 +246,7 @@ public class Roulette {
                     } catch (InterruptedException ex) {
                         Thread.currentThread().interrupt();
                     }
-                    System.out.println("How much money are you going to bet?");
+                    System.out.println(moneyBet);
                     gamble = input.nextInt();
                 }
                 if (bet.equals("red") || bet.equals("black") || bet.equals("even") || bet.equals("odd") || bet.equals("1to18") || bet.equals("19to36")) {
