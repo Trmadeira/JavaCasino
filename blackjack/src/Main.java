@@ -6,8 +6,6 @@ import Client.ClientThreadManager;
 
 public class Main {
 
-    private final int port = 8080;
-    private ServerSocket serverSocket;
     private ExecutorService cachedPool = Executors.newCachedThreadPool();
 
     public static void main(String[] args) {
@@ -19,7 +17,8 @@ public class Main {
     public void initiate() {
 
         try {
-            serverSocket = new ServerSocket(port);
+            int port = 8080;
+            ServerSocket serverSocket = new ServerSocket(port);
             createClient(serverSocket);
         } catch (IOException e) {
             System.out.println("Error binding server to port!");

@@ -3,7 +3,6 @@ package Client;
 import Dealer.Dealer;
 import Games.Blackjack;
 import Games.Roulette;
-import Server.Lobby;
 import org.academiadecodigo.bootcamp.Prompt;
 import org.academiadecodigo.bootcamp.scanners.menu.MenuInputScanner;
 import org.academiadecodigo.bootcamp.scanners.string.StringInputScanner;
@@ -12,7 +11,6 @@ import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.NoSuchElementException;
-import java.util.stream.DoubleStream;
 
 public class ClientThreadManager implements Runnable {
 
@@ -43,8 +41,6 @@ public class ClientThreadManager implements Runnable {
     private Blackjack blackjack;
     private Roulette roulette;
 
-
-    Lobby lobby;
 
     public ClientThreadManager(Socket clientSocket) {
 
