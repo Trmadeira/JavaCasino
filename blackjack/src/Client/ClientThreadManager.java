@@ -134,7 +134,7 @@ public class ClientThreadManager implements Runnable {
                             out.print("\nDepositing 10€ on your balance to let you play\n");
                             money = 10;
                         } else {
-                            out.print("\nYou have more then enough money to play!\n");
+                            out.print("\nYou have more than enough money to play!\n");
                         }
                         break;
                     }
