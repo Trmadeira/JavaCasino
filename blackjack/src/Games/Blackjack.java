@@ -1,5 +1,6 @@
 package Games;
 
+import Client.ClientThreadManager;
 import Dealer.Dealer;
 import org.academiadecodigo.bootcamp.Prompt;
 import org.academiadecodigo.bootcamp.scanners.integer.IntegerInputScanner;
@@ -34,7 +35,7 @@ public class Blackjack {
     private String message;
     private boolean gameEnd;
     private int gameAnswerIndex;
-    private int money = 20;
+    private int money;
     private int bet = 0;
     private int dealerCardsValue = 0;
     private int playerCardsValue = 0;
@@ -55,8 +56,8 @@ public class Blackjack {
         }
     }
 
-    public void run() {
-
+    public void run(int money) {
+        this.money = money;
         game();
     }
 
@@ -157,7 +158,7 @@ public class Blackjack {
             money += bet;
         } else if (playerCardsValue > 21) {
             gameEnd = true;
-            out.print(ANSI_RED + "\n" + message + " busted! He lost: " + bet + "\n" + ANSI_RESET);
+            out.print(ANSI_RED + "\n" + message + " busted! He lost: " + bet + "€" +"\n" + ANSI_RESET);
             money -= bet;
         } else if (playerCardsValue > dealerCardsValue && dealerFinished) {
             gameEnd = true;
@@ -176,7 +177,7 @@ public class Blackjack {
             money -= bet;
         } else if (dealerCardsValue > 21) {
             gameEnd = true;
-            out.print(ANSI_GREEN + "\nDealer busted! Player won : " + bet*2 + "\n" + ANSI_RESET);
+            out.print(ANSI_GREEN + "\nDealer busted! Player won : " + bet*2 + "€" + "\n" + ANSI_RESET);
             money += bet;
         } else if (dealerCardsValue > playerCardsValue && dealerFinished) {
             gameEnd = true;

@@ -1,6 +1,5 @@
 package Client;
 
-import Dealer.Dealer;
 import Games.Blackjack;
 import Games.Roulette;
 import org.academiadecodigo.bootcamp.Prompt;
@@ -17,7 +16,8 @@ public class ClientThreadManager implements Runnable {
 
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
-
+    private boolean lastGameBlackjack;
+    private boolean lastGameRoulette;
     private BufferedReader readFile;
     private FileOutputStream writeFile;
     private Socket clientSocket;
@@ -84,7 +84,15 @@ public class ClientThreadManager implements Runnable {
 
         try {
             while (true) {
-                money = blackjack.getMoney();
+                if (lastGameBlackjack) {
+                    money = blackjack.getMoney();
+                    System.out.println(money);
+                } if (lastGameRoulette){
+                    System.out.println(money = roulette.getMoney());
+
+                }
+                lastGameBlackjack = false;
+                lastGameRoulette = false;
                 answerIndex = prompt.getUserInput(scanner);
                 switch (answerIndex) {
 
@@ -94,10 +102,12 @@ public class ClientThreadManager implements Runnable {
                             break;
                         }
                         out.print("\nGame is starting!\n");
-                        blackjack.run();
+                        blackjack.run(money);
+                        lastGameBlackjack = true;
                         break;
                     }
                     case 2: {
+                        lastGameRoulette = true;
                         roulette.gameRoulette(money);
                     }
                     case 3: {
@@ -107,7 +117,7 @@ public class ClientThreadManager implements Runnable {
                     case 4: {
                         if (money == 0) {
                             out.print("\nDeposition 10€ to help you pay the depth\n");
-                            blackjack.setMoney(10);
+                            money = 10;
                         } else {
                             out.print("\nYou have more then enough money to play!\n");
                         }
@@ -150,7 +160,7 @@ public class ClientThreadManager implements Runnable {
     public void createFile() {
         String sign = "€";
         String scores = "";
-        ArrayList<String> plzHelp = new ArrayList<>();
+        ArrayList<String> tempArray = new ArrayList<>();
         String player = message + ":" + money + "€";
         int arrayIndex = 0;
 
@@ -160,11 +170,11 @@ public class ClientThreadManager implements Runnable {
             readFile = new BufferedReader(new FileReader("scores.txt"));
 
             while ((scores = readFile.readLine()) != null) {
-                plzHelp.add(scores);
+                tempArray.add(scores);
             }
 
-            for (int i = 0; i < plzHelp.size(); i++) {
-                String a = plzHelp.get(i);
+            for (int i = 0; i < tempArray.size(); i++) {
+                String a = tempArray.get(i);
                 if (a.equals(player) || a.contains(message)) {
                     System.out.println("same");
                     arrayIndex = i;
@@ -173,16 +183,16 @@ public class ClientThreadManager implements Runnable {
             }
 
             if (!same) {
-                plzHelp.add(player);
+                tempArray.add(player);
             } else {
-                plzHelp.remove(arrayIndex);
-                plzHelp.add(player);
+                tempArray.remove(arrayIndex);
+                tempArray.add(player);
             }
 
             writeFile = new FileOutputStream("scores.txt");
             writeFile.write("".getBytes(StandardCharsets.UTF_8));
             writeFile = new FileOutputStream("scores.txt", true);
-            for (String a : plzHelp) {
+            for (String a : tempArray) {
                 writeFile.write(a.getBytes(StandardCharsets.UTF_8));
                 writeFile.write("\n".getBytes(StandardCharsets.UTF_8));
             }
@@ -206,5 +216,13 @@ public class ClientThreadManager implements Runnable {
         } catch (IOException e) {
             System.out.println("Could not read file");
         }
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public int getMoney() {
+        return money;
     }
 }

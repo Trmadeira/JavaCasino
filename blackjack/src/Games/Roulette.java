@@ -18,14 +18,13 @@ public class Roulette {
     private Prompt prompt;
     private Blackjack blackjack;
 
+    int money;
 
     public Roulette(Socket clientSocket, Prompt prompt) {
-
         this.clientSocket = clientSocket;
         this.prompt = prompt;
 
         try {
-
             in = new BufferedInputStream(clientSocket.getInputStream());
             out = new PrintStream(clientSocket.getOutputStream());
 
@@ -36,7 +35,6 @@ public class Roulette {
 
 
         public void gameRoulette (int playerMoney) {
-
             Scanner input = new Scanner(in);
             out.print("");
             out.println("Welcome to Roulette");
@@ -120,11 +118,11 @@ public class Roulette {
             String cashoutConfirm = "";
             String bet = "";
             String answer = "";
+            this.money = playerMoney;
             int winStreak = 0;
             int gamble = 0;
             int payout = 0;
             int randomNum = 0;
-            int money = playerMoney;
             int rounds = 1;
 
             Random random = new Random();
@@ -205,7 +203,7 @@ public class Roulette {
                     }
                 }
                 while (answer.equals("help")) {
-                    out.println("You start off with €100, and your goal is to cash out with as much money as possible.");
+                    out.println("Your goal is to cash out with as much money as possible.");
                     out.println("If your money goes to €0 or below, you will lose.");
                     out.println("WARNING: Cashing out will reset the game.");
                     out.println(gameVisual);
@@ -457,5 +455,8 @@ public class Roulette {
                 }
             }
         }
-}
 
+    public int getMoney() {
+        return money;
+    }
+}

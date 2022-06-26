@@ -2,4 +2,4 @@ Joao:20€
 Leandro:20€
 Caspa:20€
 Rodrigo:5€
-Ruben:10€
+Ruben:20€
