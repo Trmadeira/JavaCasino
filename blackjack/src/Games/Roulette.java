@@ -36,9 +36,8 @@ public class Roulette {
 
         public void gameRoulette (int playerMoney) {
             Scanner input = new Scanner(in);
-            out.print("");
-            out.println("Welcome to Roulette");
-            out.println("Have you played before? Y/N");
+            out.println("\nWelcome to Roulette");
+            out.println("\nHave you played before? Y/N");
 
             String check = input.nextLine();
 
@@ -81,28 +80,27 @@ public class Roulette {
 
             while (!(check.equals("y") || !(check.equals("n")))) {
 
-                out.println("Incorrect, please type Y/N.");
+                out.println("\nIncorrect, please type Y/N.");
                 check = input.nextLine();
 
             }
 
             if (check.equals("Y")) {
 
-                out.println("Good luck!");
-                out.println("Remember, if you need help please type help!");
+                out.println("\nGood luck!");
+                out.println("\nRemember, if you need help please type help!");
 
             }
 
             if (check.equals("N")) {
-                out.println("You will start with 100€, and your goal is to get as much money as possible.");
-                out.println("If your money goes to 0€ or below, you will lose.");
-                out.println("WARNING: Cashing out will reset the game.");
-                out.println("You will be able to see the commands at any time, by typing 'commands'.");
+                out.println("\nYour goal is to get as much money as possible.");
+                out.println("\nIf your money goes to 0€ or below, you will lose.");
+                out.println("\nWARNING: Cashing out will reset the game.");
                 out.println(gameVisual);
-                out.println("You can scroll the instructions.");
+                out.println("\nYou can scroll the instructions.");
 
                 try {
-                    Thread.sleep(10000);
+                    Thread.sleep(500);
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
 
@@ -110,7 +108,7 @@ public class Roulette {
             }
 
             try {
-                Thread.sleep(2000);
+                Thread.sleep(1000);
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
@@ -127,49 +125,48 @@ public class Roulette {
 
             Random random = new Random();
 
-            String whatDo = "What would you like to do?";
-            String betOption ="Commands: |   red     | black  |  odd   |  even |  any  | 1to18  | 19to36 |\n" +
+            String whatDo = "\nWhat would you like to do?";
+            String betOption ="\nCommands: |   red     | black  |  odd   |  even |  any  | 1to18  | 19to36 |\n" +
                                         "| sixline | firstfive | corner | street | split | 1to12 | 13to24 | 25to36 |";
-            String commands = "Commands: | bet | money | cashout | help | restart |";
+            String commands = "\nCommands: | bet | money | cashout | help | restart |";
 
-            CASHOUT_BREAK_OUT:
+            OutOfCash:
             while (money > 0) {
 
                 payout = 0;
-                out.println("Round " + rounds + ".");
+                out.println("\nRound " + rounds + ".");
 
-                out.println("You have " + money + "€" + ".");
+                out.println("\nYou have " + money + "€" + ".");
                 out.println(whatDo);
                 out.println(commands);
                 answer = input.next();
                 while (!(answer.equals("bet")) && !(answer.equals("money")) && !(answer.equals("cashout")) &&
                         !(answer.equals("restart")) && !(answer.equals("help"))) {
-                    out.println("Invalid choice!");
-                    out.println("");
+                    out.println("\nInvalid choice!");
                     out.println(whatDo);
                     out.println(commands);
                     answer = input.next();
                 }
 
                 while (answer.equals("money")) {
-                    out.println("Your balance is " + money + "€" + ".");
+                    out.println("\nYour balance is " + money + "€" + ".");
                     out.println(whatDo);
                     out.println(commands);
                     answer = input.next();
                 }
 
                 while (answer.equals("cashout")) {
-                    out.println("Are you sure you want to cashout " + money + "€" +"? Y/N.");
+                    out.println("\nAre you sure you want to cashout " + money + "€" +"? y/n.");
                     cashoutConfirm = input.next();
                     while (!(cashoutConfirm.equals("y")) && !(cashoutConfirm.equals("n"))) {
-                        out.println("Please input either 'y' (yes) or 'n' (no). ");
-                        out.println("Are you sure you want to cashout " + money + "€" + "? Y/N.");
+                        out.println("\nPlease input either 'y' (yes) or 'n' (no). ");
+                        out.println("\nAre you sure you want to cashout " + money + "€" + "? y/n.");
                         cashoutConfirm = input.next();
                     }
                     if (cashoutConfirm.equals("y")) {
-                        out.println("You have cashed out " + money + "€" + " with a " +
+                        out.println("\nYou have cashed out " + money + "€" + " with a " +
                                 winStreak + " win streak within " + rounds + " rounds.");
-                        break CASHOUT_BREAK_OUT;
+                        break OutOfCash;
                     }
                     if (cashoutConfirm.equals("n")) {
                         out.println(whatDo);
@@ -179,16 +176,16 @@ public class Roulette {
                 }
 
                 while (answer.equals("restart")) {
-                    out.println("Are you sure? Do you really want to RESTART?");
-                    out.println("Your progress will be DELETED. Y/N.");
+                    out.println("\nAre you sure? Do you really want to RESTART?");
+                    out.println("\nYour progress will be DELETED. Y/N.");
                     cashoutConfirm = input.next();
                     if (!(cashoutConfirm.equals("y")) && !(cashoutConfirm.equals("n"))) {
-                        out.println("Please pick either Y/N.");
-                        out.println("Are you sure you want to RESTART?");
+                        out.println("\nPlease pick either Y/N.");
+                        out.println("\nAre you sure you want to RESTART?");
                         cashoutConfirm = input.next();
                     }
                     if (cashoutConfirm.equals("y")) {
-                        out.println("Restarting...");
+                        out.println("\nRestarting...");
                         money = 100;
                         winStreak = 0;
                         rounds = 1;
@@ -203,23 +200,21 @@ public class Roulette {
                     }
                 }
                 while (answer.equals("help")) {
-                    out.println("Your goal is to cash out with as much money as possible.");
-                    out.println("If your money goes to €0 or below, you will lose.");
-                    out.println("WARNING: Cashing out will reset the game.");
+                    out.println("\nYour goal is to cash out with as much money as possible.");
+                    out.println("\nIf your money goes to 0€ or below, you will lose.");
+                    out.println("\nWARNING: Cashing out will reset the game.");
                     out.println(gameVisual);
-                    out.println("You can scroll the instructions.");
+                    out.println("\nYou can scroll the instructions.");
                     out.println(whatDo);
 
                     try {
 
-                        Thread.sleep(5000);
+                        Thread.sleep(2500);
                     } catch (InterruptedException ex) {
                         Thread.currentThread().interrupt();
 
                     }
 
-                    out.println("");
-                    out.println("");
                     out.println(commands);
                     answer = input.next();
                 }
@@ -232,11 +227,8 @@ public class Roulette {
 
 
                 out.println(gameVisual);
-                out.println("");
-                out.println("");
                 out.println(betOption);
-                out.println("");
-                out.println("What would you like to bet on?");
+                out.println("\nWhat would you like to bet on?");
 
                 bet = input.next();
                 while (!(bet.equals("red")) && !(bet.equals("black")) && !(bet.equals("even")) &&
@@ -244,7 +236,7 @@ public class Roulette {
                         !(bet.equals("1to12")) && !(bet.equals("13to24")) && !(bet.equals("25to36")) &&
                         !(bet.equals("sixline")) && !(bet.equals("firstfive")) && !(bet.equals("corner")) &&
                         !(bet.equals("street")) && !(bet.equals("split")) && !(bet.equals("any"))) {
-                    out.println("Invalid choice, check the table to view what you can bet on.");
+                    out.println("\nInvalid choice, check the table to view what you can bet on.");
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException ex) {
@@ -253,19 +245,19 @@ public class Roulette {
                     out.println("");
                     out.println(betOption);
                     out.println("");
-                    out.println("What would you like to bet on?");
+                    out.println("\nWhat would you like to bet on?");
                     bet = input.nextLine();
                 }
 
 
-                String moneyBet = "How much money are you going to bet?";
+                String moneyBet = "\nHow much money are you going to bet?";
 
                 out.println(moneyBet);
                 gamble = input.nextInt();
                 while (gamble > money) {
-                    out.println("Nice try, you're betting more than you have...");
+                    out.println("\nNice try, you're betting more than you have...");
                     try {
-                        Thread.sleep(2500);
+                        Thread.sleep(1500);
                     } catch (InterruptedException ex) {
                         Thread.currentThread().interrupt();
                     }
@@ -274,147 +266,149 @@ public class Roulette {
                 }
                 if (bet.equals("red") || bet.equals("black") || bet.equals("even") || bet.equals("odd") || bet.equals("1to18") || bet.equals("19to36")) {
                     randomNum = random.nextInt(10000) + 1;
-                    out.println("Betting €" + gamble + " on " + bet + "...");
+                    out.println("\nBetting " + gamble + "€ on " + bet + "...");
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException ex) {
                         Thread.currentThread().interrupt();
                     }
-                    out.println("Spinning...");
+                    out.println("\nSpinning...");
                     payout += gamble;
                     if (randomNum < 4738) {
                         money += payout;
                         winStreak += 1;
-                        out.println("You won €" + payout + " with 47.37%!");
+                        out.println("\nYou won " + payout + "€ with 47.37%!");
                     }
                     if (randomNum > 4738) {
                         money -= gamble;
                         winStreak = 0;
-                        out.println("You lost €" + gamble + " with 52.63%!");
+                        out.println("\nYou lost " + gamble + "€ with 47.37%!");
                     }
                 } else if (bet.equals("1to12") || bet.equals("13to24") || bet.equals("25to36")) {
                     randomNum = random.nextInt(10000) + 1;
-                    out.println("Betting €" + gamble + " on " + bet + "...");
+                    out.println("\nBetting " + gamble + "€ on " + bet + "...");
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException ex) {
                         Thread.currentThread().interrupt();
                     }
-                    out.println("Spinning...");
+                    out.println("\nSpinning...");
                     payout += gamble * 2;
                     if (randomNum < 3158) {
                         money += payout;
                         winStreak += 1;
-                        out.println("You won €" + payout + " with 31.58%!");
+                        out.println("\nYou won " + payout + "€ with 31.58%!");
                     }
                     if (randomNum > 3158) {
                         money -= gamble;
                         winStreak = 0;
-                        out.println("You lost €" + gamble + " with 68.42%!");
+                        out.println("\nYou lost " + gamble + "€ with 31.58%!");
                     }
                 } else if (bet.equals("sixline")) {
                     randomNum = random.nextInt(10000) + 1;
-                    out.println("Betting €" + gamble + " on " + bet + "...");
+                    out.println("\nBetting " + gamble + "€ on " + bet + "...");
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException ex) {
                         Thread.currentThread().interrupt();
                     }
-                    out.println("Spinning...");
+                    out.println("\nSpinning...");
                     payout += gamble * 5;
                     if (randomNum < 1579) {
                         money += payout;
                         winStreak += 1;
-                        out.println("You won €" + payout + " with 15.79%!");
+                        out.println("\nYou won " + payout + "€ with 15.79%!");
                     }
                     if (randomNum > 1579) {
                         money -= gamble;
                         winStreak = 0;
-                        out.println("You lost €" + gamble + " with 84.21%%!");
+                        out.println("\nYou lost " + gamble + "€ with 15.79%!");
                     }
                 } else if (bet.equals("firstfive")) {
                     randomNum = random.nextInt(10000) + 1;
-                    out.println("Betting €" + gamble + " on " + bet + "...");
+                    out.println("\nBetting " + gamble + "€ on " + bet + "...");
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException ex) {
                         Thread.currentThread().interrupt();
                     }
-                    out.println("Spinning...");
+                    out.println("\nSpinning...");
                     payout += gamble * 6;
                     if (randomNum < 1316) {
                         money += payout;
                         winStreak += 1;
-                        out.println("You won €" + payout + " with 13.16%!");
+                        out.println("\nYou won " + payout + "€ with 13.16%!");
                     }
                     if (randomNum > 1316) {
                         money -= gamble;
                         winStreak = 0;
-                        out.println("You lost €" + gamble + " with 86.84%%!");
+                        out.println("\nYou lost " + gamble + "€ with 13.16%!");
                     }
                 } else if (bet.equals("corner")) {
                     randomNum = random.nextInt(10000) + 1;
-                    out.println("Betting €" + gamble + " on " + bet + "...");
+                    out.println("\nBetting " + gamble + "€ on " + bet + "...");
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException ex) {
                         Thread.currentThread().interrupt();
                     }
-                    out.println("Spinning...");
+                    out.println("\nSpinning...");
                     payout += gamble * 8;
                     if (randomNum < 1316) {
                         money += payout;
                         winStreak += 1;
-                        out.println("You won €" + payout + " with 10.53%!");
+                        out.println("\nYou won " + payout + "€ with 10.53%!");
                     }
                     if (randomNum > 1316) {
                         money -= gamble;
                         winStreak = 0;
-                        out.println("You lost €" + gamble + " with 89.47%%!");
+                        out.println("\nYou lost " + gamble + "€ with 10.53%!");
                     }
+
                 } else if (bet.equals("street")) {
                     randomNum = random.nextInt(10000) + 1;
-                    out.println("Betting €" + gamble + " on " + bet + "...");
+                    out.println("\nBetting " + gamble + "€ on " + bet + "...");
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException ex) {
                         Thread.currentThread().interrupt();
                     }
-                    out.println("Spinning...");
+                    out.println("\nSpinning...");
                     payout += gamble * 11;
+
                     if (randomNum < 789) {
                         money += payout;
                         winStreak += 1;
-                        out.println("You won €" + payout + " with 7.895%!");
+                        out.println("\nYou won " + payout + "€ with 7.895%!");
                     }
                     if (randomNum > 789) {
                         money -= gamble;
                         winStreak = 0;
-                        out.println("You lost €" + gamble + " with 92.105%!");
+                        out.println("\nYou lost " + gamble + "€ with 7.895%!");
                     }
                 } else if (bet.equals("split")) {
                     randomNum = random.nextInt(10000) + 1;
-                    out.println("Betting €" + gamble + " on " + bet + "...");
+                    out.println("\nBetting " + gamble + "€ on " + bet + "...");
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException ex) {
                         Thread.currentThread().interrupt();
                     }
-                    out.println("Spinning...");
+                    out.println("\nSpinning...");
                     payout += gamble * 17;
                     if (randomNum < 526) {
                         money += payout;
                         winStreak += 1;
-                        out.println("You won €" + payout + " with 5.26%!");
+                        out.println("\nYou won " + payout + "€ with 5.26%!");
                     }
                     if (randomNum > 526) {
                         money -= gamble;
                         winStreak = 0;
-                        out.println("You lost €" + gamble + " with 94.74%!");
+                        out.println("\nYou lost " + gamble + "€ with 5.26%!");
                     }
                 } else if (bet.equals("any")) {
-                    randomNum = random.nextInt(10000) + 1;
-                    out.println("Betting €" + gamble + " on " + bet + "...");
+                    randomNum = random.nextInt(15000) + 1;
+                    out.println("\nBetting " + gamble + "€ on " + bet + "...");
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException ex) {
@@ -425,37 +419,35 @@ public class Roulette {
                     if (randomNum < 262) {
                         money += payout;
                         winStreak += 1;
-                        out.println("You won €" + payout + " with 2.62%!");
+                        out.println("\nYou won " + payout + "€ with 2.62%!");
                     }
                     if (randomNum > 262) {
                         money -= gamble;
                         winStreak = 0;
-                        out.println("You lost €" + gamble + " with 97.38%!");
+                        out.println("\nYou lost " + gamble + "€ with 2.62%!");
                     }
                 }
 
                 if (money == 0) {
-                    out.println("You are now broken! Go get some more money.");
-                    System.exit(0);
+                    out.println("\nYou are now broken! Go get some more money.");
+                    break;
                 }
 
-                out.println("You are on a " + winStreak + " win streak.");
+                out.println("\nYou are on a " + winStreak + " win streak.");
                 if (winStreak == 3) {
-                    out.println("You have been awarded €500 for your third win streak!");
-                    out.println("500€ has been deposited into your account.");
+                    out.println("\nYou have won 500€ for your third win streak!");
+                    out.println("\n500€ has been deposited into your account.");
                     money += 500;
                 }
                 rounds += 1;
-                out.println("");
-                out.println("");
+
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(1500);
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
             }
         }
-
     public int getMoney() {
         return money;
     }

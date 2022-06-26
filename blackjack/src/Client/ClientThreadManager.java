@@ -25,7 +25,7 @@ public class ClientThreadManager implements Runnable {
     private InputStream in;
     private Prompt prompt;
     private String message;
-    private final String[] options = {"Play Blackjack", "Play Roulette", "Show high scores", "Deposit more money", "Check available balance", "Quit game D:"};
+    private final String[] options = {"Play Blackjack", "Play Roulette", "Show last scores", "Deposit more money", "Check available balance", "Quit game", "See our future feature"};
     int answerIndex;
     int money = 20;
     private Blackjack blackjack;
@@ -101,6 +101,13 @@ public class ClientThreadManager implements Runnable {
                             out.print("You dont have enough money go deposit some!\n");
                             break;
                         }
+                        out.print("\n" +
+                                "██████╗░██╗░░░░░░█████╗░░█████╗░██╗░░██╗░░░░░██╗░█████╗░░█████╗░██╗░░██╗\n" +
+                                "██╔══██╗██║░░░░░██╔══██╗██╔══██╗██║░██╔╝░░░░░██║██╔══██╗██╔══██╗██║░██╔╝\n" +
+                                "██████╦╝██║░░░░░███████║██║░░╚═╝█████═╝░░░░░░██║███████║██║░░╚═╝█████═╝░\n" +
+                                "██╔══██╗██║░░░░░██╔══██║██║░░██╗██╔═██╗░██╗░░██║██╔══██║██║░░██╗██╔═██╗░\n" +
+                                "██████╦╝███████╗██║░░██║╚█████╔╝██║░╚██╗╚█████╔╝██║░░██║╚█████╔╝██║░╚██╗\n" +
+                                "╚═════╝░╚══════╝╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝\n");
                         out.print("\nGame is starting!\n");
                         blackjack.run(money);
                         lastGameBlackjack = true;
@@ -108,7 +115,15 @@ public class ClientThreadManager implements Runnable {
                     }
                     case 2: {
                         lastGameRoulette = true;
+                        out.print("\n" +
+                                "██████╗░░█████╗░██╗░░░██╗██╗░░░░░███████╗████████╗████████╗███████╗\n" +
+                                "██╔══██╗██╔══██╗██║░░░██║██║░░░░░██╔════╝╚══██╔══╝╚══██╔══╝██╔════╝\n" +
+                                "██████╔╝██║░░██║██║░░░██║██║░░░░░█████╗░░░░░██║░░░░░░██║░░░█████╗░░\n" +
+                                "██╔══██╗██║░░██║██║░░░██║██║░░░░░██╔══╝░░░░░██║░░░░░░██║░░░██╔══╝░░\n" +
+                                "██║░░██║╚█████╔╝╚██████╔╝███████╗███████╗░░░██║░░░░░░██║░░░███████╗\n" +
+                                "╚═╝░░╚═╝░╚════╝░░╚═════╝░╚══════╝╚══════╝░░░╚═╝░░░░░░╚═╝░░░╚══════╝\n");
                         roulette.gameRoulette(money);
+                        break;
                     }
                     case 3: {
                         outputScores();
@@ -116,7 +131,7 @@ public class ClientThreadManager implements Runnable {
                     }
                     case 4: {
                         if (money == 0) {
-                            out.print("\nDeposition 10€ to help you pay the depth\n");
+                            out.print("\nDepositing 10€ on your balance to let you play\n");
                             money = 10;
                         } else {
                             out.print("\nYou have more then enough money to play!\n");
@@ -128,9 +143,26 @@ public class ClientThreadManager implements Runnable {
                         break;
                     }
                     case 6: {
-                        out.print("\nWhy are you leaving D: \n\n");
+                        out.print("\nSee you later!\n\n");
                         createFile();
                         close();
+                        break;
+                    }
+                    case 7: {
+                        out.print("░██████╗░█████╗░░█████╗░███╗░░██╗░░░░░░░░░\n" +
+                                "██╔════╝██╔══██╗██╔══██╗████╗░██║░░░░░░░░░\n" +
+                                "╚█████╗░██║░░██║██║░░██║██╔██╗██║░░░░░░░░░\n" +
+                                "░╚═══██╗██║░░██║██║░░██║██║╚████║░░░░░░░░░\n" +
+                                "██████╔╝╚█████╔╝╚█████╔╝██║░╚███║██╗██╗██╗\n" +
+                                "╚═════╝░░╚════╝░░╚════╝░╚═╝░░╚══╝╚═╝╚═╝╚═╝");
+                        out.print("\n\n" +
+                                "░██████╗██╗░░░░░░█████╗░████████╗  ███╗░░░███╗░█████╗░░█████╗░██╗░░██╗██╗███╗░░██╗███████╗\n" +
+                                "██╔════╝██║░░░░░██╔══██╗╚══██╔══╝  ████╗░████║██╔══██╗██╔══██╗██║░░██║██║████╗░██║██╔════╝\n" +
+                                "╚█████╗░██║░░░░░██║░░██║░░░██║░░░  ██╔████╔██║███████║██║░░╚═╝███████║██║██╔██╗██║█████╗░░\n" +
+                                "░╚═══██╗██║░░░░░██║░░██║░░░██║░░░  ██║╚██╔╝██║██╔══██║██║░░██╗██╔══██║██║██║╚████║██╔══╝░░\n" +
+                                "██████╔╝███████╗╚█████╔╝░░░██║░░░  ██║░╚═╝░██║██║░░██║╚█████╔╝██║░░██║██║██║░╚███║███████╗\n" +
+                                "╚═════╝░╚══════╝░╚════╝░░░░╚═╝░░░  ╚═╝░░░░░╚═╝╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝╚═╝╚═╝░░╚══╝╚══════╝\n\n");
+
                         break;
                     }
                 }

@@ -154,18 +154,26 @@ public class Blackjack {
     public void checkPlayerJackpot() {
         if (playerCardsValue == 21) {
             gameEnd = true;
+            out.print("\nPlayer: " + playerCardsValue + "\n");
+            out.print("\nDealer: " + dealerCardsValue + "\n");
             out.print(ANSI_GREEN + "\n" + message + " has hit a jackpot! He wins: " + bet * 2 + "€\n" + ANSI_RESET);
             money += bet;
         } else if (playerCardsValue > 21) {
             gameEnd = true;
+            out.print("\nPlayer: " + playerCardsValue + "\n");
+            out.print("\nDealer: " + dealerCardsValue + "\n");
             out.print(ANSI_RED + "\n" + message + " busted! He lost: " + bet + "€" +"\n" + ANSI_RESET);
             money -= bet;
         } else if (playerCardsValue > dealerCardsValue && dealerFinished) {
             gameEnd = true;
+            out.print("\nPlayer: " + playerCardsValue + "\n");
+            out.print("\nDealer: " + dealerCardsValue + "\n");
             out.print(ANSI_GREEN + "\nPlayer was closer to 21! He wins: " + bet * 2 + "€\n" + ANSI_RESET);
             money += bet;
         } else if (dealerCardsValue == playerCardsValue && dealerFinished) {
             gameEnd = true;
+            out.print("\nPlayer: " + playerCardsValue + "\n");
+            out.print("\nDealer: " + dealerCardsValue + "\n");
             out.print(ANSI_RED + "\nIts a draw! No money lost!\n" + ANSI_RESET);
         }
     }
@@ -173,18 +181,26 @@ public class Blackjack {
     public void checkDealerJackpot() {
         if (dealerCardsValue == 21) {
             gameEnd = true;
+            out.print("\nPlayer: " + playerCardsValue + "\n");
+            out.print("\nDealer: " + dealerCardsValue + "\n");
             out.print(ANSI_RED + "\nDealer has hit a jackpot! He wins!\n" + ANSI_RESET);
             money -= bet;
         } else if (dealerCardsValue > 21) {
             gameEnd = true;
+            out.print("\nPlayer: " + playerCardsValue + "\n");
+            out.print("\nDealer: " + dealerCardsValue + "\n");
             out.print(ANSI_GREEN + "\nDealer busted! Player won : " + bet*2 + "€" + "\n" + ANSI_RESET);
             money += bet;
         } else if (dealerCardsValue > playerCardsValue && dealerFinished) {
             gameEnd = true;
+            out.print("\nPlayer: " + playerCardsValue + "\n");
+            out.print("\nDealer: " + dealerCardsValue + "\n");
             out.print(ANSI_RED + "\nDealer was closer to 21! He wins!\n" + ANSI_RESET);
             money -= bet;
         } else if (dealerCardsValue == playerCardsValue && dealerFinished) {
             gameEnd = true;
+            out.print("\nPlayer: " + playerCardsValue + "\n");
+            out.print("\nDealer: " + dealerCardsValue + "\n");
             out.print(ANSI_RED + "\nIts a draw! No money lost!\n" + ANSI_RESET);
         }
     }
@@ -206,7 +222,7 @@ public class Blackjack {
         out.print("4 - If you hit for more cards, and the total value of the cards is over 21, you bust and lose instantly\n");
         out.print("5 - After you stand, your turn is over, and its the dealer's turn. He will get more cards until the total of his cards are equal or above 17, if he doesn't bust while drawing, he compares both total values and sees who is closest to 21. The person closer to 21 wins\n\n");
         IntegerInputScanner minAndMaxValues = new IntegerRangeInputScanner(2, money);
-        out.print("Min : 2 - Max : 1000");
+        out.print("Min : 2 - Max : ∞");
         minAndMaxValues.setMessage("\nHow much do you want to bet?\n");
         minAndMaxValues.setError("\nYou cant bet that\n");
         bet = prompt.getUserInput(minAndMaxValues);
