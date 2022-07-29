@@ -3,7 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/ac_terminal_game_jar</output-path>
     <root id="archive" name="ac-terminal-game.jar">
       <element id="module-output" name="ac-terminal-game" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/blackjack/lib/prompt-view-0.2.1-SNAPSHOT.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../JavaBank/Lib/prompt-view-0.2.1-SNAPSHOT.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
